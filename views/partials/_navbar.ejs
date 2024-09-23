@@ -1,0 +1,9 @@
+<div class="navbar">
+    <div>
+        <% if (typeof user !== 'undefined' && user) { %>
+            <a href="/auth/sign-out">Sign Out</a>
+        <% } else { %>
+            <a href="/">Home</a>
+        <% } %>
+    </div>
+</div>

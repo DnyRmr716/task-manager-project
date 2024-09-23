@@ -1,23 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-  <% if (user) { %>
-    <h1>Welcome to the app, <%= user.username %>!</h1>
-    <p>
-      <a href="/auth/sign-out">Sign out</a>
-    </p>
-  <% } else { %>
-    <h1>Welcome to the app, guest.</h1>
-    <p>
-      <a href="/auth/sign-up">Sign up</a> or
-      <a href="/auth/sign-in">Sign in</a>.
-    </p>
-  <% } %>
-  <p><a href="/vip-lounge">Get into the VIP Users Only lounge!</a></p>
+    <%- include('./partials/_navbar') %>
+    <% if (user) { %>
+        <h1>Task Taker</h1>
+        <h2>Welcome, <%= user.username %>!</h2> 
+        <a href="/tasks/new" class="button-link">Create a new task</a>
+
+        <div class="task-container">
+            <% tasks.forEach(task => { %>
+                <div class="task-box">
+                    <h3><%= task.title %></h3>
+                    <p><%= task.description %></p>
+                    <p>Priority: <%= task.priority %></p>
+                    <p>Due Date: <%= task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'Not set' %></p>
+                    
+                    <form action="/tasks/<%= task._id %>/complete" method="POST" class="action-form">
+                        <input type="hidden" name="_method" value="PUT">
+                        <label>
+                            <input type="checkbox" name="isComplete" onchange="this.form.submit()" <%= task.isComplete ? 'checked' : '' %>>
+                            Completed
+                        </label>
+                    </form>
+                    
+                    <div class="task-actions">
+                      <a href="/tasks/<%= task._id %>/edit" class="edit-button">Edit</a>
+                      <form action="/tasks/<%= task._id %>" method="POST" class="action-form" onsubmit="return confirm('Are you sure you want to delete this task?');">
+                          <input type="hidden" name="_method" value="DELETE">
+                          <button type="submit" class="delete-button">Delete</button>
+                      </form>
+                    </div>
+                </div>
+            <% }); %>
+            <% if (tasks.length === 0) { %>
+                <div class="task-box">No tasks yet!</div> 
+            <% } %>
+        </div>
+    <% } else { %>
+        <div class="new-users">
+            <h1>Task Taker</h1>
+            <h3>Please Log in or Sign up to start making tasks!</h3>
+            <div class="new-button">
+                <a href="/auth/sign-up" class="button-link">Sign up</a>
+                <a href="/auth/log-in" class="button-link">Log in</a>
+            </div>
+        </div>  
+    <% } %>
 </body>
 </html>

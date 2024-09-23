@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log In</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%- include('../partials/_navbar') %>
+  <div class="login-signup">
+  <h1>Log In</h1>
+  <form action="/auth/log-in" method="POST">
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username" required/>
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password" required />
+    <button type="submit">Log in</button>
+  </form>
+  <p>Don't have an account? <a href="/auth/sign-up"><button>Sign Up</button></a></p>
+  </div>
+</body>
+</html>

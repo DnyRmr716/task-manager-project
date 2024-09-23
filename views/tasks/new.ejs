@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>New Task</title>
+  <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body>
+    <%- include('../partials/_navbar-back') %>
+
+  <h1>Create a New Task</h1>
+
+  <form action="/tasks" method="POST">
+    <label for="title">Title:</label><br>
+    <input type="text" id="title" name="title" required><br><br>
+
+    <label for="description">Description:</label><br>
+    <textarea id="description" name="description"></textarea><br><br>
+
+    <label for="dueDate">Due Date:</label><br>
+    <input type="date" id="dueDate" name="dueDate"><br><br>
+
+    <label for="priority">Priority:</label>
+    <select id="priority" name="priority">
+    <option value="Optional">Optional</option>
+    <option value="Moderate">Moderate</option>
+    <option value="Urgent">Urgent</option>
+    </select>
+
+
+    <button type="submit">Create Task</button>
+  </form> 
+
+  <form action="/tasks" method="GET">
+    <button type="submit" class="back-button">Back to Tasks</button>
+  </form>
+</body>
+</html>
